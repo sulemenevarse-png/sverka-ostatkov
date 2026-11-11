@@ -1,0 +1,16 @@
+---
+import { tabs } from '../content/site';
+---
+
+<nav class="tabs" role="tablist">
+  <div class="wrap">
+    {
+      tabs.map((tab, index) => (
+        <button class="tab" type="button" role="tab" data-tab={tab.id} aria-selected={index === 0 ? 'true' : 'false'}>
+          <b>{index + 1}</b>
+          <span>{tab.label}</span>
+        </button>
+      ))
+    }
+  </div>
+</nav>

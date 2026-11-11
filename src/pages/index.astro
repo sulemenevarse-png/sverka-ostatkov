@@ -1,0 +1,20 @@
+---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import NowScreen from '../components/NowScreen.astro';
+import ServiceScreen from '../components/ServiceScreen.astro';
+import Tabs from '../components/Tabs.astro';
+import UploadScreen from '../components/UploadScreen.astro';
+import Base from '../layouts/Base.astro';
+---
+
+<Base>
+  <Header />
+  <Tabs />
+  <main class="wrap">
+    <NowScreen />
+    <ServiceScreen />
+    <UploadScreen />
+  </main>
+  <Footer />
+</Base>

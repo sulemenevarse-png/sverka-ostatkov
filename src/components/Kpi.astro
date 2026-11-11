@@ -1,0 +1,21 @@
+---
+/** Плитка счётчика. Значение и подпись заполняет клиентский код по id. */
+interface Props {
+  label: string;
+  valueId: string;
+  noteId?: string;
+  note?: string;
+  /** Подсказка при наведении на подпись. */
+  noteTitle?: string;
+  good?: boolean;
+  /** Плитка, которую на телефоне можно скрыть: её число уже видно в таблице. */
+  optional?: boolean;
+}
+const { label, valueId, noteId, note = '', noteTitle, good = false, optional = false } = Astro.props;
+---
+
+<div class:list={['card', 'kpi', { good, 'kpi-opt': optional }]}>
+  <div class="l">{label}</div>
+  <div class="v num" id={valueId}></div>
+  <div class="n" id={noteId} title={noteTitle}>{note}</div>
+</div>

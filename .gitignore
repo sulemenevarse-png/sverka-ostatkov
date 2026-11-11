@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+
+# Настройки окружения — только локально и на сервере
+.env
+.env.*
+!.env.example
+
+.DS_Store

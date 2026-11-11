@@ -1,0 +1,38 @@
+---
+import { uploadScreen as text } from '../content/site';
+import SectionHead from './SectionHead.astro';
+import SourceCard from './SourceCard.astro';
+---
+
+<section class="screen" id="s-up">
+  <SectionHead title={text.title} lead={text.lead} />
+
+  <div class="card privacy">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+      <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+    </svg>
+    <div><b>{text.privacyTitle}</b><span>{text.privacyText}</span></div>
+  </div>
+
+  <div class="srcs">
+    {text.sources.map((source) => <SourceCard sourceKey={source.key} title={source.title} hint={source.hint} />)}
+  </div>
+
+  <div class="card go">
+    <p id="goWaiting">{text.waiting}</p>
+    <p id="goReady" hidden><b id="goReadyCount"></b> {text.ready}</p>
+    <button class="btn" type="button" id="btnSamples">{text.samplesButton}</button>
+    <button class="btn pri" type="button" id="btnMerge" disabled>{text.mergeButton}</button>
+  </div>
+
+  <div class="card howto">
+    <b>Как сопоставляются строки</b>
+    <ul>
+      <li>Для каждого файла укажите колонку с <b>артикулом продавца</b> и колонку с <b>количеством</b>. Мы угадываем их по заголовкам, но выбор всегда можно поправить.</li>
+      <li>Если размер стоит в отдельной колонке — укажите её. Если размер уже входит в артикул (например, <code>HD-BLK-M</code>) — оставьте «нет».</li>
+      <li>Регистр, пробелы и дефисы в артикулах не важны: <code>hd-blk</code> + <code>M</code> и <code>HD_BLK_M</code> — одна позиция.</li>
+      <li>Если артикул встречается несколько раз (например, по разным складам WB), количества складываются.</li>
+    </ul>
+  </div>
+</section>

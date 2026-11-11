@@ -1,0 +1,14 @@
+---
+/** Карточка внизу экрана: короткий текст и кнопка перехода на следующий экран. */
+interface Props {
+  button: string;
+  /** id экрана, на который ведёт кнопка. */
+  target: 'now' | 'svc' | 'up';
+}
+const { button, target } = Astro.props;
+---
+
+<div class="card next">
+  <p><slot /></p>
+  <button class="btn pri" type="button" data-go={target}>{button}</button>
+</div>

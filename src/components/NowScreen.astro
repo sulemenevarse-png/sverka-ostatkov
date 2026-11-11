@@ -1,0 +1,18 @@
+---
+import { nowScreen } from '../content/site';
+import NextStep from './NextStep.astro';
+import SectionHead from './SectionHead.astro';
+---
+
+<section class="screen on" id="s-now">
+  <SectionHead title={nowScreen.title} lead={nowScreen.lead}>
+    <span class="pain" slot="badge">{nowScreen.pain}</span>
+  </SectionHead>
+  <div class="toolbar"><button class="btn" type="button" id="btnDiff">{nowScreen.highlightButton}</button></div>
+  <!-- Три таблицы рисует src/client/now-screen.ts -->
+  <div class="sheets" id="sheets"></div>
+  <NextStep button={nowScreen.next} target="svc">
+    <b id="nowSummary"></b>
+    {nowScreen.outro}
+  </NextStep>
+</section>

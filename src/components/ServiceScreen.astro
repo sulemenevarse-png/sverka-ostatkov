@@ -1,0 +1,93 @@
+---
+import { MANUAL_CHECK_CYCLE_DAYS } from '../lib/config';
+import { serviceScreen as text } from '../content/site';
+import Kpi from './Kpi.astro';
+import NextStep from './NextStep.astro';
+import SectionHead from './SectionHead.astro';
+
+const savedHint = `Продажи, которые были бы потеряны за ${MANUAL_CHECK_CYCLE_DAYS} дней до следующей ручной сверки, если товар есть на складе`;
+---
+
+<section class="screen" id="s-svc">
+  <SectionHead title={text.title} titleId="svcTitle" />
+
+  <!-- Видна только когда показаны данные из файлов пользователя -->
+  <div class="card banner" id="userBanner" hidden>
+    <span>
+      <b>Показаны ваши данные.</b>
+      <span id="bannerText"></span>
+      <b id="bannerWarn" hidden>Артикулы в файлах не совпали — проверьте, что в колонке «Артикул» выбран один и тот же артикул продавца.</b>
+    </span>
+    <label><input type="checkbox" id="optMissing" /> нет в файле = остаток 0</label>
+    <label>«заканчивается» от <input type="number" id="optLow" min="0" max="999" /> шт.</label>
+    <button class="link" type="button" id="btnBackUp">Изменить файлы</button>
+    <button class="link" type="button" id="btnBackDemo">Вернуться к демо</button>
+  </div>
+
+  <div class="kpis" id="kpisDemo">
+    <Kpi label="Сэкономлено времени" valueId="kTime" note="вместо ручной сверки в Excel" good />
+    <Kpi label="Спасено продаж" valueId="kMoney" note="оценка на демо-данных" noteTitle={savedHint} good />
+    <Kpi label="Требуют внимания" valueId="kBad" noteId="kBadNote" optional />
+    <div class="card kpi sim">
+      <button class="btn pri" type="button" id="btnSim">{text.simulateButton}</button>
+      <div class="n"><span id="kDay"></span><button class="link" type="button" id="btnReset">Сбросить</button></div>
+    </div>
+  </div>
+  <div class="kpis" id="kpisUser" hidden>
+    <Kpi label="Сведено позиций" valueId="kuTotal" noteId="kuTotalNote" />
+    <Kpi label="Требуют внимания" valueId="kuBad" note="позиций с расхождениями" />
+    <Kpi label="Нет на площадке, есть на складе" valueId="kuStuck" noteId="kuStuckNote" />
+    <Kpi label="Заканчивается" valueId="kuLow" noteId="kuLowNote" />
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-h">
+        <h3>{text.tableTitle}</h3>
+        <div class="seg sp" id="seg">
+          <button type="button" data-filter="all" class="on">Все <span id="segAllCount"></span></button>
+          <button type="button" data-filter="bad">Проблемные <span id="segBadCount"></span></button>
+        </div>
+        <input class="search" id="search" type="search" placeholder={text.searchPlaceholder} aria-label="Поиск по таблице" />
+      </div>
+      <div class="tbl-wrap">
+        <table class="main">
+          <thead>
+            <tr><th>Товар</th><th>WB</th><th>Ozon</th><th>Склад</th><th class="c-st">Статус</th></tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <div class="tfoot">
+        <div class="legend">
+          <span class="st red">Нет на площадке</span>
+          <span class="st amber">Заканчивается</span>
+        </div>
+        <span id="tcount"></span>
+        <button class="link" type="button" id="btnCsv">Скачать CSV</button>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="card">
+        <div class="card-h"><h3>{text.recommendationsTitle}</h3><span class="chip sp" id="recCount"></span></div>
+        <ul class="recs" id="recs"></ul>
+        <div class="more" id="recMore" hidden><button class="link" type="button" id="btnMore"></button></div>
+      </div>
+      <div class="card tg">
+        <div class="card-h"><h3>{text.telegramTitle}</h3><span class="chip sp">макет</span></div>
+        <div class="tg-h">
+          <div class="tg-a">СО</div>
+          <div><b>{text.botName}</b><small>бот</small></div>
+        </div>
+        <div class="tg-b" id="tg"></div>
+        <div class="tg-f">{text.telegramNote}</div>
+      </div>
+    </div>
+  </div>
+
+  <NextStep button={text.next} target="up">
+    <b>{text.outroTitle}</b>
+    {text.outro}
+  </NextStep>
+</section>

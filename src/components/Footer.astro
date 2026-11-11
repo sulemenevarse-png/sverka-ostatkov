@@ -1,0 +1,20 @@
+---
+import { contactUrl, footer } from '../content/site';
+
+// Ссылка приходит из настроек окружения: пропускаем только безопасные схемы, чтобы опечатка
+// или подмена значения не превратили кнопку в «javascript:»-ссылку.
+const safeContactUrl = /^(https:\/\/|mailto:|tel:)/i.test(contactUrl) ? contactUrl : '';
+---
+
+<footer>
+  <div class="wrap">
+    <span>{footer.note}</span>
+    {
+      safeContactUrl && (
+        <a class="btn dark" href={safeContactUrl} target="_blank" rel="noopener noreferrer">
+          {footer.cta}
+        </a>
+      )
+    }
+  </div>
+</footer>

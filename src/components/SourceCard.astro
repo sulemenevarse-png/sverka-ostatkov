@@ -1,0 +1,19 @@
+---
+/** Карточка одного источника на экране загрузки. Содержимое после выбора файла рисует src/client/upload-screen.ts. */
+interface Props {
+  sourceKey: string;
+  title: string;
+  hint: string;
+}
+const { sourceKey, title, hint } = Astro.props;
+---
+
+<div class="card src" id={`src-${sourceKey}`}>
+  <div class="src-t"><span class:list={['dot', sourceKey]}></span>{title}<span class="chip"></span></div>
+  <label class="drop">
+    <input type="file" accept=".xlsx,.xls,.csv,.txt,.tsv" />
+    <b>Выберите файл</b>или перетащите сюда · {hint}
+  </label>
+  <div class="err src-error" hidden></div>
+  <div class="src-mapping"></div>
+</div>

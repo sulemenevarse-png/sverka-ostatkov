@@ -1,0 +1,16 @@
+---
+/** Заголовок экрана: название, необязательная плашка рядом (слот badge) и вводный текст. */
+interface Props {
+  title: string;
+  lead?: string;
+  /** id заголовка — если его текст меняется из клиентского кода. */
+  titleId?: string;
+}
+const { title, lead, titleId } = Astro.props;
+---
+
+<div class="sec-head">
+  <h2 id={titleId} data-demo-title={titleId ? title : undefined}>{title}</h2>
+  <slot name="badge" />
+  {lead && <p class="sub">{lead}</p>}
+</div>
